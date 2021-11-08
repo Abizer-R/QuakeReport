@@ -2,7 +2,6 @@ package com.example.quakereport;
 
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,23 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class EarthQuakeAdapter extends ArrayAdapter<EarthQuakeData> {
 
-    public EarthQuakeAdapter(@NonNull Context context, int resource, @NonNull ArrayList<EarthQuakeData> objects) {
+    public EarthQuakeAdapter(@NonNull Context context, int resource, @NonNull List<EarthQuakeData> objects) {
         super(context, 0, objects);
     }
 
     // Convert Unix Time into date
     public String formatDate(Date earthquakeDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM DD, yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
         return dateFormat.format(earthquakeDate);
     }
 
