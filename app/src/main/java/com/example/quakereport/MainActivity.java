@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int EARTHQUAKE_LOADER_ID = 1;
 
     private EarthQuakeAdapter earthQuakeAdapter;
-    private TextView emptyView;
+    private TextView emptyStateView;
 
 
 //    min magnitude 6: https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10
@@ -37,13 +36,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         ListView earthquakeListView = findViewById(R.id.list_view);
         earthQuakeAdapter = new EarthQuakeAdapter(this, 0, new ArrayList<EarthQuakeData>());
         earthquakeListView.setAdapter(earthQuakeAdapter);
 
-        emptyView = findViewById(R.id.empty_view);
-        earthquakeListView.setEmptyView(emptyView);
+        emptyStateView = findViewById(R.id.empty_TextView);
+        earthquakeListView.setEmptyView(emptyStateView);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -60,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
-
-
     @Override
     public Loader<List<EarthQuakeData>> onCreateLoader(int i, Bundle bundle) {
         return new EarthquakeLoader(this, websiteUrl);
@@ -74,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if(earthquakes.size() > 0)
             earthQuakeAdapter.addAll(earthquakes);
         else
-            emptyView.setText("No earthquakes found.");
+            emptyStateView.setText(R.string.no_earthquake);
     }
 
     @Override

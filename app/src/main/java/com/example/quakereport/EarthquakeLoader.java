@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.content.AsyncTaskLoader;
-import android.util.Log;
 
 import java.util.List;
 
