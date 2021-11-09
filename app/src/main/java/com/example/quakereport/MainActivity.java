@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private EarthQuakeAdapter earthQuakeAdapter;
     private TextView emptyStateView;
+    private ProgressBar progressBar;
 
 
 //    min magnitude 6: https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         emptyStateView = findViewById(R.id.empty_TextView);
         earthquakeListView.setEmptyView(emptyStateView);
+
+        progressBar = findViewById(R.id.progressBar);
 
         earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<EarthQuakeData>> loader, List<EarthQuakeData> earthquakes) {
+        progressBar.setVisibility(View.GONE);
         earthQuakeAdapter.clear();
 
         if(earthquakes.size() > 0)
