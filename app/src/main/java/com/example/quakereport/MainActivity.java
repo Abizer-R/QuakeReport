@@ -9,6 +9,8 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -58,7 +60,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        getLoaderManager().initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        // Check if user have network connection or not
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        if(isConnected)
+            getLoaderManager().initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        else {
+            progressBar.setVisibility(View.GONE);
+            emptyStateView.setText(R.string.no_internet);
+        }
     }
 
 
